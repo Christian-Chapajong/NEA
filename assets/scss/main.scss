@@ -1,0 +1,78 @@
+* {
+    box-sizing: border-box
+  }
+  html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+  
+  h1, h2, h3 {
+    margin-bottom: 1rem
+  }
+  
+  .border-rad-1 {
+    border-radius: 1rem !important;
+  }
+  
+  .page-wrap {
+    height: 100%;
+    width: 100%;
+    margin: 2rem 0;
+  }
+  
+  .authentication-link {
+    margin-left: 15px;
+    text-decoration: none;
+    color: blue !important;
+  }
+  
+  .card-generator {
+    background-color: #fafafa;
+    border-radius: 1rem;
+    -webkit-box-shadow: 5px 5px 10px 5px #8A8A8A; 
+    box-shadow: 5px 5px 10px 5px #8A8Av8A;
+    
+    &__hotbar {
+      width: 100%;
+      border-bottom: 1px solid black;
+      padding: .5rem 0;
+   
+    }
+    
+    &__main {
+      width: 90%;
+      
+      .btn-add-card {
+        min-width: 125px;
+        font-size: 1.2rem;
+        color: #000;
+      }
+    }
+  }
+  
+  .hotbar-bg {
+    max-width: 250px;
+    background-color: rgba(20, 173, 245, 0.65);
+    padding: .5rem;
+    border-radius: 2rem;
+    -webkit-box-shadow: 1px 2px 7px 3px #0a4763; 
+    
+    ul.hotbar__icons {
+      list-style: none;
+      padding-left: 0 !important;
+      margin-bottom: 0 !important;
+    
+      li {
+        display: inline-block;
+      
+        &:not(:first-child) {
+          margin-left: 1.5rem;
+        }
+      }
+    }
+  }
+  
+  
+  
+  
