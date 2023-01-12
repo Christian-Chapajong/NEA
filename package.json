@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "node-sass": "^8.0.0"
+  },
+  "scripts": {
+    "css": "node-sass assets/scss/main.scss -o assets/css/",
+    "css:watch": "npm run css && node-sass assets/scss/main.scss -wo assets/css/"
+  }
+
+}
