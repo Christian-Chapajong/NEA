@@ -6,9 +6,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <div class="navbar-nav">
-                <a class="nav-link <?php echo getURL() == 'http://localhost/NEA/' || getURL() == 'http://localhost/NEA/index.php' ? 'active' : '' ?>" aria-current="page" href="index.php">Home</a>
-                <a class="nav-link <?php echo getURL() == 'http://localhost/NEA/search.php' ? 'active' : '' ?>" href="#">Search</a>
-                <a class="nav-link <?php echo getURL() == 'http://localhost/NEA/decks.php' ? 'active' : '' ?>" href="decks.php">Decks</a>
+                <a class="nav-link <?php echo getCurrentPath() == '' || getCurrentPath() == 'index.php' ? 'active' : '' ?>" aria-current="page" href="index.php">Home</a>
+                <a class="nav-link <?php echo getCurrentPath() == 'search.php' ? 'active' : '' ?>" href="#">Search</a>
+                <a class="nav-link <?php echo getCurrentPath() == 'decks.php' ? 'active' : '' ?>" href="decks.php">Decks</a>
             </div>
             <div class="ms-auto navbar-nav">
                 <?php if (isset($_SESSION['user_id'])){ ?>
@@ -36,8 +36,8 @@
                         </ul>
                     </div>
                 <?php } else { ?>
-                    <a class="nav-link authentication-link <?php echo getURL() == 'http://localhost/NEA/login.php' ? 'active' : '' ?>" href="login.php">Login</a>
-                    <a class="nav-link authentication-link <?php echo getURL() == 'http://localhost/NEA/signup.php' ? 'active' : '' ?>" href="signup.php">Signup</a>
+                    <a class="nav-link authentication-link <?php echo getCurrentPath() == 'login.php' ? 'd-none' : '' ?> " href="login.php">Login</a>
+                    <a class="nav-link authentication-link <?php echo getCurrentPath() == 'signup.php' ? 'd-none' : '' ?>" href="signup.php">Signup</a>
                 <?php } ?>
             </div>
         </div>

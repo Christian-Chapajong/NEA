@@ -71,34 +71,19 @@
                                 }  
                             ?>
                             <form method="post">
-<<<<<<< HEAD
-                                <div class="form__group field">
-                                    <input type="text" class="form__field" placeholder="Username" name="username" value="<?php echo isset($username) ? $username : '' ?>" required />
-                                    <label for="first_name" class="form__label">Username</label>
-                                </div>
-                                <div class="form__group field">
-=======
                                 <div class="form__group">
                                     <input type="text" class="form__field" placeholder="Username" name="username" value="<?php echo isset($username) ? $username : '' ?>" required />
                                     <label for="first_name" class="form__label">Username</label>
                                 </div>
                                 <div class="form__group">
->>>>>>> 7a45a67 (decks page)
                                     <input type="password" class="form__field" placeholder="Password" name="password" required />
                                     <label for="last_name" class="form__label">Password</label>
                                 </div>
 
-<<<<<<< HEAD
-                                <button class="btn c-btn btn-outline-primary mt-4 mb-3" type="submit">Log in</button>
-                            </form>
-
-                            <a lass="authentication__redirect"  href="signup.php">Click to Signup</a>
-=======
                                 <button class="btn c-btn btn-outline-light mt-4 mb-3 authentication-btn" type="submit">Log in</button>
                             </form>
 
                             <a class="authentication__redirect"  href="signup.php">Click to Signup</a>
->>>>>>> 7a45a67 (decks page)
 
                         </div>
 

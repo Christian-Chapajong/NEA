@@ -48,19 +48,6 @@
                         </div>
                         <!-- Modal -->
                         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-<<<<<<< HEAD
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary">Understood</button>
-=======
                             <div class="modal-dialog absolute-center">
                                 <div class="modal-content">
                                 <div class="modal-header">
@@ -84,7 +71,6 @@
                                 </div>
                                 <div class="modal-footer justify-content-center">
                                     <button class="btn c-btn btn-outline-primary mt-4 mb-3 " form="createDeckForm" type="submit">Create</button>
->>>>>>> 7a45a67 (decks page)
                                 </div>
                                 </div>
                             </div>

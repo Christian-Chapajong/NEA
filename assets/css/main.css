@@ -33,6 +33,12 @@ section {
 .border-rad-1 {
   border-radius: 1rem !important; }
 
+.absolute-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) !important; }
+
 .page-wrap {
   height: 100%;
   width: 100%;
@@ -54,6 +60,8 @@ section {
   border-radius: 2rem;
   box-shadow: 1px 2px 7px 3px #1F3541;
   -webkit-box-shadow: 1px 2px 7px 3px #1F3541; }
+  .hotbar-bg:hover {
+    height: 90px; }
   .hotbar-bg ul.hotbar__icons {
     list-style: none;
     padding-left: 0 !important;
@@ -62,6 +70,9 @@ section {
       display: inline-block; }
       .hotbar-bg ul.hotbar__icons li:not(:first-child) {
         margin-left: 1.5rem; }
+      .hotbar-bg ul.hotbar__icons li i {
+        min-height: 32px;
+        min-width: 32px; }
 
 .user-first-name {
   color: #242526; }
@@ -165,10 +176,6 @@ section {
   background-size: cover;
   height: 100vh; }
   .landing-bg .landing-text {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
     color: #fff;
     padding: 1rem 0; }
     @media screen and (min-width: 992px) {
@@ -223,12 +230,17 @@ section {
   @media screen and (min-width: 768px) {
     .authentication_right {
       padding: 0 3.5rem; } }
+  .authentication_right form .authentication-btn {
+    color: #fff; }
 
 .authentication__redirect {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   color: #fff; }
   .authentication__redirect:hover {
     color: #a4a4a4; }
+  @media screen and (min-width: 768px) {
+    .authentication__redirect {
+      font-size: 1.3rem; } }
 
 .form__group {
   position: relative;
@@ -241,16 +253,25 @@ section {
   border: 0;
   border-bottom: 2px solid #fff;
   outline: 0;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   padding: .5rem 0;
   background: transparent;
-  transition: border-color 0.2s; }
+  transition: border-color 0.2s ease-in; }
   .form__field::placeholder {
     color: transparent; }
   .form__field:placeholder-shown ~ .form__label {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     cursor: text;
     top: 1.25rem; }
+    @media screen and (min-width: 768px) {
+      .form__field:placeholder-shown ~ .form__label {
+        font-size: 1.3rem; } }
+  .form__field_textarea {
+    height: 200px;
+    resize: none; }
+  @media screen and (min-width: 768px) {
+    .form__field {
+      font-size: 1.3rem; } }
 
 .form__label {
   position: absolute;
@@ -281,3 +302,38 @@ input.form__field {
 /* reset input */
 .form__field:required, .form__field:invalid {
   box-shadow: none; }
+
+.form__group_dark .form__field {
+  border-bottom-color: #a4a4a4; }
+
+.form__group_dark .form__label {
+  color: #242526; }
+
+.form__group_dark input.form__field {
+  color: #242526; }
+
+.form__group_dark .form__field:focus {
+  color: #242526;
+  border-image: linear-gradient(to left, #1F3541, #5289B5); }
+  .form__group_dark .form__field:focus ~ .form__label {
+    color: #242526; }
+
+.modal-dialog {
+  width: 90%;
+  margin: 0; }
+  @media screen and (min-width: 768px) {
+    .modal-dialog {
+      width: 100%; } }
+
+.deck-list {
+  list-style-type: none;
+  padding: 0; }
+  .deck-list__item {
+    background-color: #e9ecef;
+    min-height: 100px; }
+
+.current-deck {
+  font-size: 1.2rem; }
+  .current-deck__heading {
+    color: #5289B5;
+    font-weight: 600; }

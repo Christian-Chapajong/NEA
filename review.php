@@ -81,7 +81,7 @@
         // save the sql query as a string
         $sql = "INSERT INTO flashcards (flashcard_id, last_performance_rating, easiness, next_due_date, flashcard_interval) VALUES (?, ?, ?, ?, ?)";
         // create a unique ID for the flashcard using the createID function with a length of 10 
-        $flashcard_id = createID(10); 
+        $flashcard_id = createID(5); 
 
         // if the prepare statement is successful 
         if( $stmt = $mysqli->prepare($sql) ) {
