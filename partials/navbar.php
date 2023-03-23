@@ -7,7 +7,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <div class="navbar-nav">
                 <a class="nav-link <?php echo getCurrentPath() == '' || getCurrentPath() == 'index.php' ? 'active' : '' ?>" aria-current="page" href="index.php">Home</a>
-                <a class="nav-link <?php echo getCurrentPath() == 'search.php' ? 'active' : '' ?>" href="#">Search</a>
+                <a class="nav-link <?php echo getCurrentPath() == 'search.php' ? 'active' : '' ?>" href="search.php">Search</a>
                 <a class="nav-link <?php echo getCurrentPath() == 'decks.php' ? 'active' : '' ?>" href="decks.php">Decks</a>
             </div>
             <div class="ms-auto navbar-nav">
@@ -26,10 +26,6 @@
                                     </div>
                                 </div>
                             </a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
-                            <li><a class="dropdown-item" href="#">Settings</a></li>
-                            <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="logout.php">
                                 <button class="btn c-btn btn-outline-primary">Log out</button>
                             </a></li>

@@ -1,4 +1,0 @@
-Navy Blue: #1F3541
-Blue Grotto: #5289B5
-Baby Blue: #AFD8F2
-White: #EDF2F3

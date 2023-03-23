@@ -3,7 +3,6 @@
     <?php 
         session_start();
 
-        $isSlick = true; 
         require_once("partials/connection.php");
         require_once("partials/head.php");
         require_once("partials/functions.php");
@@ -25,9 +24,14 @@
                         <?php echo $user->getFirstName() ?>
                     </p>
                 </h1>
-                
             </div>
-            <section id="section-recently-reviewed">
+
+            <div class="text-center">
+                <a href="decks.php">
+                    <button class="btn btn-primary c-btn" type="button" style="color: white";>Decks</button>
+                </a>
+            </div>
+            <!-- <section id="section-recently-reviewed">
                 <div class="recently-reviewed my-3">
                 <h3 class="mb-4">Recently Reviewed</h3>
                 <div class="container">
@@ -63,9 +67,9 @@
                 </div>
                 
                 </div>
-            </section>
+            </section> -->
             
-            <section id="section-progress-chart">
+            <!-- <section id="section-progress-chart">
                 <h3>Progress Chart</h3>
 
                 <div class="progress-chart__key">
@@ -101,7 +105,7 @@
                         Sunday
                     </div>
                 </div>
-            </section>
+            </section> -->
             </div>
         </div>
 
