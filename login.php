@@ -86,13 +86,13 @@
                             <a class="authentication__redirect"  href="signup.php">Click to Signup</a>
 
                         </div>
-
-                        
-
                     </div>
                 </div>
-            </div> 
+            </div>
+            <?php require_once("partials/footer.php") ?>
+
         </main>
+
 
         <?php require_once("partials/scripts.php") ?>
 

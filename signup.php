@@ -196,9 +196,11 @@
 
                     </div>
                 </div>
-                
             </div> 
+            <?php require_once("partials/footer.php") ?>
+
         </main>
+
 
         <?php require_once("partials/scripts.php") ?>
     </body>

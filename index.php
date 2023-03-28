@@ -1,19 +1,17 @@
+<?php
+    session_start();
+    require_once("partials/functions.php");
+
+    if (isset($_SESSION['user_id'])) {
+        header("Location: home.php");
+    }
+
+    $isTransparentNavbar = true;
+?>
+
 <!doctype html>
 <html lang="en">
-    <?php
-        session_start();
-        require_once("partials/head.php");
-        require_once("partials/functions.php");
-
-        if (isset($_SESSION['user_id'])) {
-            header("Location: home.php");
-        }
-
-        $isTransparentNavbar = true;
-    ?>
-    
-    <!-- Add the slick-theme.css if you want default styling -->
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick-theme.css"/>
+    <?php require_once("partials/head.php"); ?>
     <body>
         <?php require_once("partials/navbar.php") ?>
         <main>
@@ -34,10 +32,12 @@
                     </div>
                 </div>
             </div>
-            
+
+            <?php require_once("partials/footer.php") ?>
+
         </main>
 
-
+        
         <?php require_once("partials/scripts.php") ?>
     </body>
 </html>

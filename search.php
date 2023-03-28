@@ -40,54 +40,60 @@
     <?php require_once("partials/navbar.php") ?>
 
     <main>
-        <div class="container mt-5">
-            <form method="POST">
-                <div class="input-group">
-                    <div class="form-outline flex-grow-1">
-                        <input type="search" id="search" class="form-control" name="search" placeholder="Search"value="<?php echo isset($search) ? $search : '' ?>"/>
+        <div class="page-wrap">
+            <div class="container mt-5">
+                <form method="POST">
+                    <div class="input-group">
+                        <div class="form-outline flex-grow-1">
+                            <input type="search" id="search" class="form-control" name="search" placeholder="Search"value="<?php echo isset($search) ? $search : '' ?>"/>
+                        </div>
+                        <button type="button" class="btn btn-primary" type="submit" for>
+                            <i class="fas fa-search"></i>
+                        </button>
                     </div>
-                    <button type="button" class="btn btn-primary" type="submit" for>
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </form>
+                </form>
 
-            <!-- If there are search results -->
-            <?php if (isset($_POST['search'])) { ?>
-                <?php if (count($searchResults)) { ?>
-                    <ul class="deck-list mt-4">
-                        <?php foreach ($searchResults as $deck) { ?>
-                            <li class="deck-list__item border-rad-1 text-start p-3 mb-2">
-                                <div class="deck-list__top">
-                                    <h4 class="d-inline-block">
-                                        <a class="link" href="view.php?deck_id=<?php echo $deck['deck_id'] ?>&deck_title=<?php echo $deck['deck_title'] ?>&user_id=<?php echo $deck['user_id'] ?>&deck_description=<?php echo $deck['deck_description']; ?>">
-                                            <?php echo $deck['deck_title']; ?>
-                                        </a>
-                                    </h4>
-                                    <div class="dropdown float-end">
-                                        <i class="fa-solid fa-ellipsis-vertical fa-2x d-inline-block pe-3 dropdown-toggle link text-decoration-none" type="button" id="deck-options" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                        <ul class="dropdown-menu" aria-labelledby="deck-options">
-                                            <li><a class="dropdown-item" href="save.php?deck_id=<?php echo $deck['deck_id']; ?>">Save to library </a></li>
-                                        </ul>
+                <!-- If there are search results -->
+                <?php if (isset($_POST['search'])) { ?>
+                    <?php if (count($searchResults)) { ?>
+                        <ul class="deck-list mt-4">
+                            <?php foreach ($searchResults as $deck) { ?>
+                                <li class="deck-list__item border-rad-1 text-start p-3 mb-2">
+                                    <div class="deck-list__top">
+                                        <h4 class="d-inline-block">
+                                            <a class="link" href="view.php?deck_id=<?php echo $deck['deck_id'] ?>&deck_title=<?php echo $deck['deck_title'] ?>&user_id=<?php echo $deck['user_id'] ?>&deck_description=<?php echo $deck['deck_description']; ?>">
+                                                <?php echo $deck['deck_title']; ?>
+                                            </a>
+                                        </h4>
+                                        <div class="dropdown float-end">
+                                            <i class="fa-solid fa-ellipsis-vertical fa-2x d-inline-block pe-3 dropdown-toggle link text-decoration-none" type="button" id="deck-options" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                            <ul class="dropdown-menu" aria-labelledby="deck-options">
+                                                <li>
+                                                    <a class="dropdown-item" href="save.php?deck_id=<?php echo $deck_id ?>?deck_title=<?php echo $deck_title ?>?user_id=<?php echo $user_id ?>?deck_description=<?php echo $deck_description ?>?deck_length=<?php echo $deck_length ?>">Save to library </a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <?php echo $deck['deck_description'] ? "<span>" . $deck['deck_description'] . "</span>" : '' ;?>
+                                    <?php echo $deck['deck_description'] ? "<span>" . $deck['deck_description'] . "</span>" : '' ;?>
 
-                            </li>
-                        <?php } ?>
-                    </ul>
+                                </li>
+                            <?php } ?>
+                        </ul>
 
-                <?php } else { ?>
-                    <p class="mb-3" style="font-size: 1.5rem;">
-                        <strong>No decks found.</strong>
-                    </p>
+                    <?php } else { ?>
+                        <p class="mb-3" style="font-size: 1.5rem;">
+                            <strong>No decks found.</strong>
+                        </p>
+                    <?php } ?>
                 <?php } ?>
-            <?php } ?>
 
+            </div>
         </div>
-
+        
+        <?php require_once("partials/footer.php") ?>
     </main>
+
 
     <?php require_once("partials/scripts.php") ?>
 </body>

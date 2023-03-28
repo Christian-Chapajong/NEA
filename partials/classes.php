@@ -59,20 +59,4 @@
             
         }
     }
-
-    class Deck {
-        public $_deck_id;
-        public $_user_id;
-        public $_deck_title;
-        public $_deck_description;
-
-        public function __construct($deck_id, $user_id, $deck_title, $deck_description ) 
-        {
-            $this->_deck_id = $deck_id;
-            $this->_user_id = $user_id;
-            $this->_deck_title = $deck_title;
-            $this->_deck_description = $deck_description;
-        }
-
-    }
 ?>

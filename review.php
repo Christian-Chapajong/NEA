@@ -169,7 +169,7 @@
     <?php require_once("partials/navbar.php") ?>
 
     <main>
-        <div class="page-wrapper">
+        <div class="page-wrap">
             <div class="container mt-5">
                 <div class="row justify-content-center">
                 <?php if (isset($overdueCards)) {  ?>
@@ -239,6 +239,8 @@
                                 
             </div>
         </div>
+        <?php require_once("partials/footer.php") ?>
+
     </main>
     
 

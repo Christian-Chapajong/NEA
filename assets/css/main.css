@@ -40,7 +40,7 @@ section {
   transform: translate(-50%, -50%) !important; }
 
 .page-wrap {
-  height: 100%;
+  min-height: 100vh;
   width: 100%;
   margin: 2rem 0; }
 
@@ -387,3 +387,16 @@ input.form__field {
 .flip-card-back {
   background-color: #e9ecef;
   transform: rotateY(180deg); }
+
+.deck-info p {
+  font-size: 1.25rem; }
+
+.save-container {
+  height: 50px;
+  width: 100%; }
+
+.footer {
+  background-color: #a4a4a4; }
+  .footer p {
+    font-size: 1.5rem;
+    color: #fff; }

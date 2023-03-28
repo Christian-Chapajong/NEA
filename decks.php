@@ -1,9 +1,6 @@
-<!doctype html>
-<html lang="en">
 <?php
 session_start();
 
-require_once("partials/head.php");
 require_once("partials/functions.php");
 
 $user = checkLogin($mysqli);
@@ -30,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $stmt->bind_param('ssss', $deck_id, $user_id, $deck_title, $deck_description);
         $stmt->execute();
 
-        header("Location: create.php");
+        header("Location: create.php?deck_id={$deck_id}");
         die;
     } else { // if the prepare statement is unsuccessful, output the error
         echo $mysqli->errno . ' ' . $mysqli->error;
@@ -38,7 +35,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 }
 
 ?>
-
+<!doctype html>
+<html lang="en">
+<?php require_once("partials/head.php"); ?>
 <body>
     <?php require_once("partials/navbar.php"); ?>
     <main>
@@ -124,7 +123,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
             </div>
         </div>
+        
+        <?php require_once("partials/footer.php") ?>
+
     </main>
+
+
     <?php require_once("partials/scripts.php") ?>
 </body>
 

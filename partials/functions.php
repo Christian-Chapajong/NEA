@@ -55,10 +55,10 @@
         $user = new User($user_data['user_id'], $user_data['first_name'], $user_data['last_name'], $user_data['email'], $user_data['username'], $user_data['password'], $user_data['date_created']);        
         return $user;
     }
-    function createDeckObject($deck_data) {
-        $deck = new Deck($deck_data['deck_id'], $deck_data['user_id'], $deck_data['deck_title'], $deck_data['deck_description']);
-        return $deck;
-    }
+    // function createDeckObject($deck_data) {
+    //     $deck = new Deck($deck_data['deck_id'], $deck_data['user_id'], $deck_data['deck_title'], $deck_data['deck_description']);
+    //     return $deck;
+    // }
     function checkLogin($mysqli)  {
         // Check if a user already has a current session i.e. is logged in already
         if(isset($_SESSION['user_id'])) {

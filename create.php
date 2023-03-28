@@ -1,136 +1,137 @@
-<!doctype html>
-<html lang="en">
-    <?php
-        session_start();
+<?php
+    session_start();
 
-        require_once("partials/head.php");
-        require_once("partials/functions.php");
+    require_once("partials/functions.php");
 
-        $user = checkLogin($mysqli);
+    $user = checkLogin($mysqli);
 
-        // If upload button is clicked ...
-        if (isset($_POST['upload'])) {
+    // If upload button is clicked ...
+    if (isset($_POST['upload'])) {
 
-            // save the filename of the uploaded image
-            $filename = $_FILES["upload_img"]["name"];
-            // temp name for where the image is stored after upload
-            $tempname = $_FILES["upload_img"]["tmp_name"];
-            // the image side that has been selected
-            $side = $_POST['side'];
-            $folder = "./images/" . $filename;
-            $image_id = createID(5);
+        // save the filename of the uploaded image
+        $filename = $_FILES["upload_img"]["name"];
+        // temp name for where the image is stored after upload
+        $tempname = $_FILES["upload_img"]["tmp_name"];
+        // the image side that has been selected
+        $side = $_POST['side'];
+        $folder = "./images/" . $filename;
+        $image_id = createID(5);
 
-            // if the image side is front
-            if ($side == "front") {
-                $on_front = true;
+        // if the image side is front
+        if ($side == "front") {
+            $on_front = true;
+        } else {
+            $on_front = false;
+        }
+
+        // Get all the submitted data from the form
+        $sql = "INSERT INTO images (image_id, filename, on_front) VALUES (?, ?, ?)";
+
+        // if the prepare statement is successful
+        if( $stmt = $mysqli->prepare($sql) ) {
+            $_SESSION['image_id'] = $image_id;
+            // specify each data type and bind the paramaters of the sql statement with the variable
+            $stmt->bind_param('sss', $image_id, $filename, $on_front);
+            $stmt->execute();
+
+        } else { // if the prepare statement is unsuccessful, output the error
+            echo $mysqli->errno . ' ' . $mysqli->error;
+        }
+
+        // move the uploaded image into the folder: images
+        move_uploaded_file($tempname, $folder);
+    }
+
+    // if a new colour is saved...
+    if (isset($_POST['save_colour'])) {
+        //save both colours into variables
+        $front_colour = $_POST['front_colour'];
+        $back_colour = $_POST['back_colour'];
+        $_SESSION['front_colour'] = $front_colour;
+        $_SESSION['back_colour'] = $back_colour;
+
+    }
+
+    // if a flashcard is added...
+    if( isset($_POST['add_card']) && (isset($_POST['flashcard_front']) || isset($_POST['flashcard_back'])) ) {
+        $deck_id = $_GET['deck_id'];
+        $flashcard_front = $_POST['flashcard_front'];
+        $flashcard_back = $_POST['flashcard_back'];
+        $tags = $_POST['tags'];
+
+        $flashcard_id = createID(5);
+
+        // if front or back colour is set
+        if (isset($_SESSION['image_id'])) {
+            if (isset($_SESSION['front_colour']) || isset($_SESSION['back_colour'])) {
+                // create a query which inserts a new row into flashcards with colours
+                $sql = "INSERT INTO flashcards (flashcard_id, deck_id, flashcard_front, flashcard_back, image_id, front_colour, back_colour) VALUES (?, ?, ?, ?, ?, ?, ?)";
             } else {
-                $on_front = false;
+                $sql = "INSERT INTO flashcards (flashcard_id, deck_id, flashcard_front, flashcard_back, image_id) VALUES (?, ?, ?, ?, ?)";
             }
-
-            // Get all the submitted data from the form
-            $sql = "INSERT INTO images (image_id, filename, on_front) VALUES (?, ?, ?)";
-
-            // if the prepare statement is successful
-            if( $stmt = $mysqli->prepare($sql) ) {
-                $_SESSION['image_id'] = $image_id;
-                // specify each data type and bind the paramaters of the sql statement with the variable
-                $stmt->bind_param('sss', $image_id, $filename, $on_front);
-                $stmt->execute();
-
-            } else { // if the prepare statement is unsuccessful, output the error
-                echo $mysqli->errno . ' ' . $mysqli->error;
-            }
-
-            // move the uploaded image into the folder: images
-            move_uploaded_file($tempname, $folder);
+        } elseif (isset($_SESSION['front_colour']) || isset($_SESSION['back_colour'])) {
+            $sql = "INSERT INTO flashcards (flashcard_id, deck_id, flashcard_front, flashcard_back, front_colour, back_colour) VALUES (?, ?, ?, ?, ?, ?)";
+        } else {
+            // create a query which inserts a new row into flashcards without colours
+            $sql = "INSERT INTO flashcards (flashcard_id, deck_id, flashcard_front, flashcard_back) VALUES (?, ?, ?, ?)";
         }
-
-        // if a new colour is saved...
-        if (isset($_POST['save_colour'])) {
-            //save both colours into variables
-            $front_colour = $_POST['front_colour'];
-            $back_colour = $_POST['back_colour'];
-            $_SESSION['front_colour'] = $front_colour;
-            $_SESSION['back_colour'] = $back_colour;
-
-        }
-
-        // if a flashcard is added...
-        if( isset($_POST['add_card']) && (isset($_POST['flashcard_front']) || isset($_POST['flashcard_back'])) ) {
-            $deck_id = $_GET['deck_id'];
-            $flashcard_front = $_POST['flashcard_front'];
-            $flashcard_back = $_POST['flashcard_back'];
-            $tags = $_POST['tags'];
-
-            $flashcard_id = createID(5);
-
-            // if front or back colour is set
+        
+        // if the prepare statement is successful
+        if( $stmt = $mysqli->prepare($sql) ) {
+            // if the front or back colour is set 
             if (isset($_SESSION['image_id'])) {
                 if (isset($_SESSION['front_colour']) || isset($_SESSION['back_colour'])) {
-                    // create a query which inserts a new row into flashcards with colours
-                    $sql = "INSERT INTO flashcards (flashcard_id, deck_id, flashcard_front, flashcard_back, image_id, front_colour, back_colour) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                    // specify each data type and bind the paramaters of the sql statement with the variables
+                    $stmt->bind_param('sssssss', $flashcard_id, $deck_id, $flashcard_front, $flashcard_back, $_SESSION['image_id'], $_SESSION['front_colour'], $_SESSION['back_colour']);
+                    unset($_SESSION['front_colour']);
+                    unset($_SESSION['back_colour']);   
                 } else {
-                    $sql = "INSERT INTO flashcards (flashcard_id, deck_id, flashcard_front, flashcard_back, image_id) VALUES (?, ?, ?, ?, ?)";
+                    $stmt->bind_param('sssss', $flashcard_id, $deck_id, $flashcard_front, $flashcard_back, $_SESSION['image_id']);
                 }
+                unset($_SESSION['image_id']);
             } elseif (isset($_SESSION['front_colour']) || isset($_SESSION['back_colour'])) {
-                $sql = "INSERT INTO flashcards (flashcard_id, deck_id, flashcard_front, flashcard_back, front_colour, back_colour) VALUES (?, ?, ?, ?, ?, ?)";
+                $stmt->bind_param('ssssss', $flashcard_id, $deck_id, $flashcard_front, $flashcard_back, $_SESSION['front_colour'], $_SESSION['back_colour']);
+
             } else {
-                // create a query which inserts a new row into flashcards without colours
-                $sql = "INSERT INTO flashcards (flashcard_id, deck_id, flashcard_front, flashcard_back) VALUES (?, ?, ?, ?)";
-            }
-            
-            // if the prepare statement is successful
-            if( $stmt = $mysqli->prepare($sql) ) {
-                // if the front or back colour is set 
-                if (isset($_SESSION['image_id'])) {
-                    if (isset($_SESSION['front_colour']) || isset($_SESSION['back_colour'])) {
-                        // specify each data type and bind the paramaters of the sql statement with the variables
-                        $stmt->bind_param('sssssss', $flashcard_id, $deck_id, $flashcard_front, $flashcard_back, $_SESSION['image_id'], $_SESSION['front_colour'], $_SESSION['back_colour']);
-                        unset($_SESSION['front_colour']);
-                        unset($_SESSION['back_colour']);   
-                    } else {
-                        $stmt->bind_param('sssss', $flashcard_id, $deck_id, $flashcard_front, $flashcard_back, $_SESSION['image_id']);
-                    }
-                    unset($_SESSION['image_id']);
-                } elseif (isset($_SESSION['front_colour']) || isset($_SESSION['back_colour'])) {
-                    $stmt->bind_param('ssssss', $flashcard_id, $deck_id, $flashcard_front, $flashcard_back, $_SESSION['front_colour'], $_SESSION['back_colour']);
-
-                } else {
-                    $stmt->bind_param('ssss', $flashcard_id, $deck_id, $flashcard_front, $flashcard_back);
-                }
-
-                $stmt->execute();
-
-            } else { // if the prepare statement is unsuccessful, output the error
-                echo $mysqli->errno . ' ' . $mysqli->error;
+                $stmt->bind_param('ssss', $flashcard_id, $deck_id, $flashcard_front, $flashcard_back);
             }
 
-            
+            $stmt->execute();
 
-            if ($tags) {
-                $tagsArray = explode(',', $tags); //convert the string into an array with each element being a tag
-
-                // for each tag in the array
-                foreach ($tagsArray as $tag_name) {
-                    $tag_id = createID(5);
-                    // create a query which inserts a new row into tags
-                    $sql = "INSERT INTO tags (tag_id, flashcard_id, tag_name) VALUES (?, ?, ?)";
-
-                    // if the prepare statement is successful
-                    if( $stmt = $mysqli->prepare($sql) ) {
-                        // specify each data type and bind the paramaters of the sql statement with the variables
-                        $stmt->bind_param('sss', $tag_id, $flashcard_id, $tag_name);
-                        $stmt->execute();
-
-                    } else { // if the prepare statement is unsuccessful, output the error
-                        echo $mysqli->errno . ' ' . $mysqli->error;
-                    }
-
-                }
-            }
+        } else { // if the prepare statement is unsuccessful, output the error
+            echo $mysqli->errno . ' ' . $mysqli->error;
         }
 
-    ?>
+        
+
+        if ($tags) {
+            $tagsArray = explode(',', $tags); //convert the string into an array with each element being a tag
+
+            // for each tag in the array
+            foreach ($tagsArray as $tag_name) {
+                $tag_id = createID(5);
+                // create a query which inserts a new row into tags
+                $sql = "INSERT INTO tags (tag_id, flashcard_id, tag_name) VALUES (?, ?, ?)";
+
+                // if the prepare statement is successful
+                if( $stmt = $mysqli->prepare($sql) ) {
+                    // specify each data type and bind the paramaters of the sql statement with the variables
+                    $stmt->bind_param('sss', $tag_id, $flashcard_id, $tag_name);
+                    $stmt->execute();
+
+                } else { // if the prepare statement is unsuccessful, output the error
+                    echo $mysqli->errno . ' ' . $mysqli->error;
+                }
+
+            }
+        }
+    }
+
+?>
+<!doctype html>
+<html lang="en">
+    <?php require_once("partials/head.php"); ?>
+
     <body>
         <?php require_once("partials/navbar.php"); ?>
         <main>
@@ -273,7 +274,13 @@
                     </div>
                 </div>
             </div>
+            <?php require_once("partials/footer.php") ?>
+
+
+
         </main>
+        
+
         <?php require_once("partials/scripts.php") ?>
         <script>
             // when the page has loaded...

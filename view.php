@@ -15,9 +15,7 @@
 
     $result = $mysqli->query($sql);
     $cards = rowsToArray($result);
-
-    print_r($cards);
-
+    $deck_length = count($cards);
 
 ?>
 
@@ -28,38 +26,61 @@
     <?php require_once("partials/navbar.php") ?>
 
     <main>
-        <div class="container mt-5">
-            <div class="d-flex">
-                <div class="deck-info">
-                    <p>Deck author: </p>
-                    <p>Number of cards: </p>
+        <div class="page-wrap">
+            <div class="container mt-5">
+                <div class="d-flex justify-content-between mb-4">
+                    <div class="deck-info">
+                        <p>
+                            <strong>Deck title:</strong>
+                            <?php echo $deck_title ?>
+                            <br>
+                            <?php echo $deck_description ?>
+                        </p>
+                    </div>
+                    <a href="save.php?deck_id=<?php echo $deck_id ?>&deck_title=<?php echo $deck_title ?>&user_id=<?php echo $user_id ?>&deck_description=<?php echo $deck_description ?>&deck_length=<?php echo $deck_length ?>">
+                        <button class="btn btn-primary c-btn" style="color: white">Save Deck</button>
+                    </a>
                 </div>
-                <a href="save.php?deck_id=<?php echo $deck['deck_id']; ?>">
-                    <button class="btn btn-primary c-btn">Save Deck</button>
-                </a>
+                
+                <?php if (count($cards)) { ?>
+                    <ul class="deck-list card-list">
+                        <?php foreach ($cards as $card) { ?>
+                            <li class="deck-list__item card-list__item border-rad-1 text-start p-3 mb-2">
+                                <div class="row">
+                                    <div class="col-12 col-md-6 text-center">
+                                        <p>
+                                            <strong>Front</strong>
+                                        </p>
+                                        <p>
+                                            <?php echo $card['flashcard_front'] ?>
+                                        </p>
+                                    </div>
+                                    <div class="col-12 col-md-6 text-center">
+                                        <p>
+                                            <strong>Back</strong>
+                                        </p>
+                                        <p>
+                                            <?php echo $card['flashcard_back'] ?>
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                        <?php } ?>
+                    </ul>
+
+                <?php } else { ?>
+                    <p class="mb-3" style="font-size: 1.5rem;">
+                        <strong>No cards found.</strong>
+                    </p>
+                <?php } ?>
+
             </div>
-            
-            <?php if (count($cards)) { ?>
-                <ul class="deck-list card-list">
-                    <?php foreach ($searchResults as $deck) { ?>
-                        <li class="deck-list__item card-list__item border-rad-1 text-start p-3 mb-2">
-                            
-
-                            <?php echo $deck['deck_description'] ? "<span>" . $deck['deck_description'] . "</span>" : '' ;?>
-
-                        </li>
-                    <?php } ?>
-                </ul>
-
-            <?php } else { ?>
-                <p class="mb-3" style="font-size: 1.5rem;">
-                    <strong>No decks found.</strong>
-                </p>
-            <?php } ?>
-
         </div>
+        
+        <?php require_once("partials/footer.php") ?>
 
     </main>
+
 
     <?php require_once("partials/scripts.php") ?>
 </body>
