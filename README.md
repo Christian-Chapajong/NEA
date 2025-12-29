@@ -1,6 +1,6 @@
 # Spacer
 
-**The Spaced Repetition Algorithm for Cognitive Expansion & Recall**
+**The Spaced Repetition App for Cognitive Expansion & Recall**
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![PHP](https://img.shields.io/badge/PHP-7.4%2B-777BB4?logo=php)
